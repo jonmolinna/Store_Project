@@ -33,13 +33,9 @@ export class AuthService {
 
         const refresh_token = this.jwtService.sign(payload, {
             secret: JWT_SECRET_REFRESH_TOKEN,
-            expiresIn: '1d'
+            expiresIn: '15m'
         })
 
         return { access_token, refresh_token }
     }
-
-    // async refreshTokens(user: User) {
-    //     return this.login(user)
-    // }
 }

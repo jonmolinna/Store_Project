@@ -23,9 +23,9 @@ export class AuthController {
             
             res.cookie('refresh_token', refresh_token, {
                 httpOnly: true,
-                secure: true,
-                sameSite: 'strict',
-                maxAge: 1 * 24 * 60 * 60 * 1000 // 1d
+                secure: false, // true solo si usas HTTPS
+                sameSite: 'lax', // production strict
+                maxAge: 7 * 24 * 60 * 60 * 1000 // 7d
             })
             
 
@@ -40,6 +40,7 @@ export class AuthController {
         }
     }
 
+    @Public()
     @HttpCode(HttpStatus.OK)
     @UseGuards(AuthGuard('jwt-refresh'))
     @Post('refresh')
@@ -50,9 +51,9 @@ export class AuthController {
 
             res.cookie('refresh_token', refresh_token, {
                 httpOnly: true,
-                secure: true,
-                sameSite: 'strict',
-                maxAge: 1 * 24 * 60 * 60 * 1000,
+                secure: false, // true solo si usas HTTPS
+                sameSite: 'lax', // production strict
+                maxAge: 7 * 24 * 60 * 60 * 1000,
             })
 
             return { access_token }

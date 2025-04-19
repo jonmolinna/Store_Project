@@ -8,8 +8,8 @@ async function bootstrap() {
 
   // CORS
   app.enableCors({
-    origin: 'http://localhost:9000',
-    Credential: true, //envia cookie
+    origin: 'http://localhost:5173',
+    credentials: true, //envia cookie
   })
 
   // cookie
