@@ -44,6 +44,11 @@ export class SedesController {
   @Roles(Role.ADMIN)
   @ApiCrudSedeDocsDecorator('update')
   async updateSede(@Param('id', new ParseIntPipe()) id: number, @Body() dto: UpdateSedeDto) {
-
+    return await this.sedesService.update(id, {
+      name: dto?.name?.toLowerCase().trim(),
+      address: dto?.address?.toLowerCase().trim(),
+      phone: dto?.phone?.toLowerCase().trim(),
+      flag: dto?.flag,
+    })
   }
 }

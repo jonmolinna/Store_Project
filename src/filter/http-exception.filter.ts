@@ -37,6 +37,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     // Errores por restricciones de base de datos (PostgreSQL)
     else if (exception instanceof QueryFailedError) {
+      console.log("YOOOO --> LLEGAS AQUI ")
       const error: any = exception;
 
       if (error.code === '23505') {

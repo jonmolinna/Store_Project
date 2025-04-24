@@ -102,10 +102,29 @@ export function ApiCrudSedeDocsDecorator(action: CrudAction) {
             description: 'Error interno del servidor',
           }),
         ),
-      update: () => applyDecorators(
-        base,
-        ApiOperation({ summary: 'Actualizar una sede por ID (Solo Admin)' }),
-      )
+      update: () =>
+        applyDecorators(
+          base,
+          ApiOperation({ summary: 'Actualizar una sede por ID (Solo Admin)' }),
+          ApiResponse({
+            status: 200,
+            description: 'Sede actualizado correctamente',
+            type: Sede,
+          }),
+          ApiResponse({
+            status: 404,
+            description: 'No se encontró la sede con el ID proporcionado',
+          }),
+          ApiResponse({ status: 400, description: 'Ingrese un ID válido' }),
+          ApiResponse({
+            status: 403,
+            description: 'No tienes permisos para acceder a este recurso',
+          }),
+          ApiResponse({
+            status: 500,
+            description: 'Error interno del servidor',
+          }),
+        ),
     };
 
   return actions[action]();

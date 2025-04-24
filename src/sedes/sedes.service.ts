@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Sede } from './entity/sede.entity';
 import { Repository } from 'typeorm';
 import { CreateSedeDto } from './dto/create-sede.dto';
+import { UpdateSedeDto } from './dto/update-sede.dto';
 
 @Injectable()
 export class SedesService {
@@ -62,5 +63,17 @@ export class SedesService {
     }
 
     await this.sedeRepository.delete(id);
+  }
+
+  async update(id: number, dto: UpdateSedeDto): Promise<Sede | null> {
+    const sede = await this.sedeRepository.findOne({ where: { id } });
+
+    if (!sede)
+      throw new NotFoundException(
+        'No se encontró la sede con el ID proporcionado',
+      );
+      
+    const editSede = Object.assign(sede, dto);
+    return await this.sedeRepository.save(editSede);
   }
 }
