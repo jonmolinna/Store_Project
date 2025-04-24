@@ -4,17 +4,16 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  UnauthorizedException,
   Request,
   UseGuards,
   Req,
   Res,
   UseInterceptors,
   ClassSerializerInterceptor,
+  NotFoundException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CustomException } from 'src/exceptions/custom.exception';
-import { Public } from 'src/decorator/public.decorator';
+import { Public } from 'src/common/decorator/public.decorator';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { User } from 'src/users/entity/user.entity';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
@@ -48,17 +47,17 @@ export class AuthController {
 
       return { access_token };
     } catch (error) {
-      if (error instanceof UnauthorizedException) {
-        throw new CustomException(
-          'Credenciales incorrectas',
-          HttpStatus.FORBIDDEN,
-        );
-      }
+      // if (error instanceof UnauthorizedException) {
+      //   throw new CustomException(
+      //     'Credenciales incorrectas',
+      //     HttpStatus.FORBIDDEN,
+      //   );
+      // }
 
-      throw new CustomException(
-        'Ocurrió un error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      // throw new CustomException(
+      //   'Ocurrió un error',
+      //   HttpStatus.INTERNAL_SERVER_ERROR,
+      // );
     }
   }
 
@@ -81,17 +80,17 @@ export class AuthController {
 
       return { access_token };
     } catch (error) {
-      if (error instanceof UnauthorizedException) {
-        throw new CustomException(
-          'Credenciales incorrectas',
-          HttpStatus.FORBIDDEN,
-        );
-      }
+      // if (error instanceof UnauthorizedException) {
+      //   throw new CustomException(
+      //     'Credenciales incorrectas',
+      //     HttpStatus.FORBIDDEN,
+      //   );
+      // }
 
-      throw new CustomException(
-        'Ocurrió un error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      // throw new CustomException(
+      //   'Ocurrió un error',
+      //   HttpStatus.INTERNAL_SERVER_ERROR,
+      // );
     }
   }
 
@@ -112,10 +111,7 @@ export class AuthController {
       const user = await this.userService.findById(id);
 
       if (!user) {
-        throw new CustomException(
-          'Usuario no encontrado',
-          HttpStatus.NOT_FOUND,
-        );
+        throw new NotFoundException('User not found');
       }
 
       return {
@@ -126,11 +122,12 @@ export class AuthController {
         roles: user.roles,
       };
 
+
     } catch (error) {
-      throw new CustomException(
-        'Ocurrió un error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      // throw new CustomException(
+      //   'Ocurrió un error',
+      //   HttpStatus.INTERNAL_SERVER_ERROR,
+      // );
     }
   }
 }
