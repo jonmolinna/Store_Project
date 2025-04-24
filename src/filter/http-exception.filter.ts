@@ -14,20 +14,23 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
+    let status = HttpStatus.INTERNAL_SERVER_ERROR
 
-    let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let message: string | string[] = 'Error interno del servidor';
-
+    
     // Errores lanzados con HttpException
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       const responseError = exception.getResponse();
 
-    //   si responseObject es un objecto y tiene la propiedad message Y es un array esa propiedad message
-      if (typeof responseError === 'object' && responseError['message'] && Array.isArray(responseError['message'])) {
+      //   si responseObject es un objecto y tiene la propiedad message Y es un array esa propiedad message
+      if (
+        typeof responseError === 'object' &&
+        responseError['message'] &&
+        Array.isArray(responseError['message'])
+      ) {
         message = responseError['message'];
-      }
-      else {
+      } else {
         message = exception.message;
       }
     }
@@ -39,6 +42,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
       if (error.code === '23505') {
         status = HttpStatus.CONFLICT;
         message = 'Ya existe un registro con ese valor único';
+      }
+
+      if (error.code === '22P02') {
+        status = HttpStatus.BAD_REQUEST;
+        message = 'El ID proporcionado no es válido';
       }
     }
 

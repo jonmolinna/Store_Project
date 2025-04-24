@@ -11,11 +11,10 @@ export class JwtRefreshStrategy extends PassportStrategy(
 ) {
   constructor() {
     super({
-      // jwtFromRequest: ExtractJwt.fromBodyField('refresh_token'),
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req: Request) => req?.cookies?.refresh_token,
       ]),
-      
+
       secretOrKey: JWT_SECRET_REFRESH_TOKEN,
       passReqToCallback: true,
     });

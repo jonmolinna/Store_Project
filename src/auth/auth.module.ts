@@ -9,20 +9,18 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { JwtAccessStrategy } from './strategy/jwt.strategy';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { JwtRefreshStrategy } from './strategy/jwt-refresh.strategy';
+import { RolesGuard } from 'src/common/guard/roles.guard';
 
 @Module({
-  imports: [
-    UsersModule,
-    JwtModule.register({}),
-    PassportModule
-  ],
+  imports: [UsersModule, JwtModule.register({}), PassportModule],
   controllers: [AuthController],
   providers: [
-    AuthService, 
-    { provide: APP_GUARD, useClass: JwtAuthGuard }, 
-    LocalStrategy, 
+    AuthService,
+    LocalStrategy,
     JwtAccessStrategy,
-    JwtRefreshStrategy
-  ]
+    JwtRefreshStrategy,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AuthModule {}

@@ -38,7 +38,7 @@ export class UsersService {
       birthDate: dto.birthDate,
       username: dto.username.toLowerCase().trim(),
       password: hash,
-      roles: dto.roles.map((role) => role.toLowerCase()),
+      roles: dto.roles,
       flag: true,
     });
 

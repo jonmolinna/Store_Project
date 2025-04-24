@@ -28,6 +28,7 @@ async function bootstrap() {
     .setTitle('My Name Business API')
     .setDescription('API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .addTag('store')
     .build();
 

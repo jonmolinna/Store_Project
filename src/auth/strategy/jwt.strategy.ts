@@ -13,6 +13,8 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'jwt') {
     }
 
     validate(payload: any) {
-        return { id: payload.sub, username: payload.username }
+        // payload is the decoded JWT token
+        // It contains the data that was signed in the token
+        return { id: payload.sub, username: payload.username, roles: payload.roles }
     }
 }

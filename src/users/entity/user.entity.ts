@@ -8,6 +8,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Role } from '../role/role.enum';
 
 @Entity()
 export class User {
@@ -31,7 +32,7 @@ export class User {
   password: string;
 
   @Column({ type: 'simple-array' })
-  roles: string[];
+  roles: Role[];
 
   @Column({ default: true, type: 'boolean' })
   flag: boolean;
