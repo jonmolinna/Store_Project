@@ -14,6 +14,7 @@ export class SedesController {
   constructor(private readonly sedesService: SedesService) {}
 
   @Post('add')
+  @Roles(Role.ADMIN)
   @ApiCrudSedeDocsDecorator('create')
   async createSede(@Body() dto: CreateSedeDto) {
     return await this.sedesService.create(dto);

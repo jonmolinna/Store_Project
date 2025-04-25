@@ -17,8 +17,12 @@ async function bootstrap() {
   // cookie
   app.use(cookieParser());
 
-  // Validation
-  app.useGlobalPipes(new ValidationPipe());
+  // Validation and Transform
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,
+    whitelist: true,
+    forbidNonWhitelisted: true
+  }));
 
   // Exception Global
   app.useGlobalFilters(new HttpExceptionFilter());

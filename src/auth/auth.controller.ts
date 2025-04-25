@@ -53,7 +53,6 @@ export class AuthController {
       //     HttpStatus.FORBIDDEN,
       //   );
       // }
-
       // throw new CustomException(
       //   'Ocurrió un error',
       //   HttpStatus.INTERNAL_SERVER_ERROR,
@@ -86,7 +85,6 @@ export class AuthController {
       //     HttpStatus.FORBIDDEN,
       //   );
       // }
-
       // throw new CustomException(
       //   'Ocurrió un error',
       //   HttpStatus.INTERNAL_SERVER_ERROR,
@@ -121,8 +119,6 @@ export class AuthController {
         lastName: user.lastName,
         roles: user.roles,
       };
-
-
     } catch (error) {
       // throw new CustomException(
       //   'Ocurrió un error',

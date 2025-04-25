@@ -16,7 +16,9 @@ export class SedesService {
   ) {}
 
   async findById(id: number): Promise<Sede | null> {
-    const sede = await this.sedeRepository.findOne({ where: { id } });
+    const sede = await this.sedeRepository.findOne({
+      where: { id, flag: true },
+    });
 
     if (!sede) {
       throw new NotFoundException(
@@ -72,7 +74,7 @@ export class SedesService {
       throw new NotFoundException(
         'No se encontró la sede con el ID proporcionado',
       );
-      
+
     const editSede = Object.assign(sede, dto);
     return await this.sedeRepository.save(editSede);
   }
