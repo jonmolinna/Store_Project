@@ -74,5 +74,6 @@ export class UsersController {
   @ApiCrudUserDocsDecorator('update')
   async update(@Param('id', new ParseIntPipe()) id: number,  @Body() dto: UpdateUserDto) {
     console.log("Update")
+    console.log("ESTO DE AQUI ES UNA PRUEBA DE CONEXION")
   }
 }
